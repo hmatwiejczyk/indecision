@@ -24,7 +24,6 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "concurrently": "^5.0.0",
-    "live-server": "^1.2.1",
-    "nodemon": "^1.19.4"
+    "live-server": "^1.2.1"
   }
 }
