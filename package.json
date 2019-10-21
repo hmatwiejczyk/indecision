@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "live-server"
+    "start:server": "live-server",
+    "start:babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
+    "start": "concurrently npm:start:*"
   },
   "repository": {
     "type": "git",
@@ -16,7 +18,13 @@
     "url": "https://github.com/hmatwiejczyk/indecision/issues"
   },
   "homepage": "https://github.com/hmatwiejczyk/indecision#readme",
-  "dependencies": {
-    "live-server": "^1.2.1"
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "concurrently": "^5.0.0",
+    "live-server": "^1.2.1",
+    "nodemon": "^1.19.4"
   }
 }
