@@ -3,7 +3,8 @@
 var app = {
   title: 'Indecision App',
   subtitle: 'some info',
-  options: []
+  options: [],
+  isTitle: true
 };
 var appRoot = document.getElementById('app');
 
@@ -28,11 +29,21 @@ var onMakeDecision = function onMakeDecision() {
   if (option) alert(option);
 };
 
+var onShowTitle = function onShowTitle() {
+  app.isTitle = !app.isTitle;
+  render();
+};
+
 var render = function render() {
   var template = React.createElement(
     'div',
     null,
     React.createElement(
+      'button',
+      { onClick: onShowTitle },
+      'Toggle Title'
+    ),
+    app.isTitle && React.createElement(
       'h1',
       null,
       app.title

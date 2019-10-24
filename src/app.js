@@ -1,7 +1,8 @@
 const app = {
   title: 'Indecision App',
   subtitle: 'some info',
-  options: []
+  options: [],
+  isTitle: true
 };
 const appRoot = document.getElementById('app');
 
@@ -26,13 +27,22 @@ const onMakeDecision = () => {
   if (option) alert(option);
 };
 
+const onShowTitle = () => {
+  app.isTitle = !app.isTitle;
+  render();
+};
+
 const render = () => {
   const template = (
     <div>
-      <h1>{app.title}</h1>
+      <button onClick={onShowTitle}>Toggle Title</button>
+      {app.isTitle && <h1>{app.title}</h1>}
+
       {app.subtitle && <p>Age: {app.subtitle}</p>}
       <p>{app.options.length > 0 ? 'here your options' : 'No options'}</p>
-      <button disabled={!app.options.length} onClick={onMakeDecision}>What should I do?</button>
+      <button disabled={!app.options.length} onClick={onMakeDecision}>
+        What should I do?
+      </button>
       <button onClick={onRemoveAll}>Remove All</button>
       <br />
 
