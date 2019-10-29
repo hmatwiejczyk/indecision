@@ -19,6 +19,7 @@ var IndecisionApp = function (_React$Component) {
     _this.deleteOptionsHandler = _this.deleteOptionsHandler.bind(_this);
     _this.pickOptionHandler = _this.pickOptionHandler.bind(_this);
     _this.addOptionHandler = _this.addOptionHandler.bind(_this);
+    _this.removeOptionHandler = _this.removeOptionHandler.bind(_this);
     _this.state = {
       options: props.options
     };
@@ -56,6 +57,17 @@ var IndecisionApp = function (_React$Component) {
       if (option) alert(option);
     }
   }, {
+    key: 'removeOptionHandler',
+    value: function removeOptionHandler(option) {
+      this.setState(function (prevState) {
+        return {
+          options: prevState.options.filter(function (item) {
+            return item !== option;
+          })
+        };
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var subtitle = 'Put your life in the hands of computer';
@@ -69,6 +81,7 @@ var IndecisionApp = function (_React$Component) {
         }),
         React.createElement(Options, {
           options: this.state.options,
+          removeOptionHandler: this.removeOptionHandler,
           deleteOptionsHandler: this.deleteOptionsHandler
         }),
         React.createElement(AddOption, { addOptionHandler: this.addOptionHandler })
@@ -91,7 +104,11 @@ var Options = function Options(props) {
       'ol',
       null,
       props.options.map(function (o, i) {
-        return React.createElement(Option, { key: i, optionText: o });
+        return React.createElement(Option, {
+          removeOptionHandler: props.removeOptionHandler,
+          key: i,
+          optionText: o
+        });
       })
     ),
     React.createElement(
@@ -106,7 +123,17 @@ var Option = function Option(props) {
   return React.createElement(
     'li',
     null,
-    props.optionText
+    props.optionText,
+    ' ',
+    React.createElement(
+      'button',
+      {
+        onClick: function onClick() {
+          props.removeOptionHandler(props.optionText);
+        }
+      },
+      'X'
+    )
   );
 };
 
