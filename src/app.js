@@ -11,9 +11,13 @@ class IndecisionApp extends React.Component {
   }
 
   componentDidMount() {
-    const json = localStorage.getItem('options');
-    const options = JSON.parse(json);
-    this.setState(() => ({options}));
+    try {
+      const json = localStorage.getItem('options');
+      const options = JSON.parse(json);
+      this.setState(() => ({ options }));
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -75,6 +79,7 @@ IndecisionApp.defaultProps = {
 const Options = props => {
   return (
     <div>
+      {props.options.length === 0 && <p>no data</p>}
       <ol>
         {props.options.map((o, i) => {
           return (
@@ -121,7 +126,9 @@ class AddOption extends React.Component {
     this.setState(() => ({
       error
     }));
-    e.target.elements.option.value = '';
+    if (!error) {
+      e.target.elements.option.value = '';
+    }
   }
   render() {
     return (
