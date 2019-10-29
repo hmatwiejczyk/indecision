@@ -20,7 +20,7 @@ var IndecisionApp = function (_React$Component) {
     _this.pickOptionHandler = _this.pickOptionHandler.bind(_this);
     _this.addOptionHandler = _this.addOptionHandler.bind(_this);
     _this.state = {
-      options: []
+      options: props.options
     };
     return _this;
   }
@@ -58,12 +58,11 @@ var IndecisionApp = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var title = 'Indecision';
       var subtitle = 'Put your life in the hands of computer';
       return React.createElement(
         'div',
         null,
-        React.createElement(Header, { title: title, subtitle: subtitle }),
+        React.createElement(Header, { subtitle: subtitle }),
         React.createElement(Action, {
           hasOptions: this.state.options.length,
           pickOptionHandler: this.pickOptionHandler
@@ -79,6 +78,10 @@ var IndecisionApp = function (_React$Component) {
 
   return IndecisionApp;
 }(React.Component);
+
+IndecisionApp.defaultProps = {
+  options: []
+};
 
 var Options = function Options(props) {
   return React.createElement(
@@ -168,12 +171,16 @@ var Header = function Header(props) {
       null,
       props.title
     ),
-    React.createElement(
+    props.subtitle && React.createElement(
       'h2',
       null,
       props.subtitle
     )
   );
+};
+
+Header.defaultProps = {
+  title: 'Indecision App'
 };
 
 var Action = function Action(props) {
@@ -188,4 +195,4 @@ var Action = function Action(props) {
   );
 };
 
-ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(IndecisionApp, { options: ['first', 'second'] }), document.getElementById('app'));
