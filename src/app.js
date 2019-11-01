@@ -1,3 +1,7 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+
 class IndecisionApp extends React.Component {
   constructor(props) {
     super(props);
@@ -14,7 +18,9 @@ class IndecisionApp extends React.Component {
     try {
       const json = localStorage.getItem('options');
       const options = JSON.parse(json);
-      this.setState(() => ({ options }));
+      if (options) {
+        this.setState(() => ({ options }));
+      }
     } catch (error) {
       console.log(error);
     }
