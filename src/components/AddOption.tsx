@@ -1,6 +1,13 @@
-import React from 'react';
+import * as React from 'react';
 
-export class AddOption extends React.Component {
+interface IndecisionState {
+  error: string;
+}
+
+export class AddOption extends React.Component<
+  { addOptionHandler },
+  IndecisionState
+> {
   constructor(props) {
     super(props);
     this.onSubmitForm = this.onSubmitForm.bind(this);

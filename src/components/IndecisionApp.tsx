@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import { AddOption } from './AddOption';
 import { Options } from './Options';
 import { Header } from './Header';
 import { Action } from './Action';
 
-export class IndecisionApp extends React.Component {
+export class IndecisionApp extends React.Component<{}, { options }> {
   constructor(props) {
     super(props);
     this.deleteOptionsHandler = this.deleteOptionsHandler.bind(this);
@@ -12,7 +12,7 @@ export class IndecisionApp extends React.Component {
     this.addOptionHandler = this.addOptionHandler.bind(this);
     this.removeOptionHandler = this.removeOptionHandler.bind(this);
     this.state = {
-      options: props.options
+      options: props.options ? props.options: []
     };
   }
 
@@ -80,6 +80,6 @@ export class IndecisionApp extends React.Component {
   }
 }
 
-IndecisionApp.defaultProps = {
-  options: []
-};
+// IndecisionApp.defaultProps = {
+//   options: []
+// };

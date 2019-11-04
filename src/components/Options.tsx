@@ -1,5 +1,5 @@
-import React from 'react';
-import { Option } from "./Option";
+import * as React from 'react';
+import { Option } from './Option';
 
 export const Options = props => {
   return (
