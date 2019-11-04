@@ -3,18 +3,24 @@ import { AddOption } from './AddOption';
 import { Options } from './Options';
 import { Header } from './Header';
 import { Action } from './Action';
+import { OptionModal } from './OptionModal';
 
 interface IIndecisionAppProps {
-  options: string[]
+  options: string[];
 }
 
 interface IIndecisionAppState {
-  options: string[]
+  options: string[];
+  selectedOption: string;
 }
 
-export class IndecisionApp extends React.Component<IIndecisionAppProps, IIndecisionAppState>{
+export class IndecisionApp extends React.Component<
+  IIndecisionAppProps,
+  IIndecisionAppState
+> {
   state = {
-    options: this.props.options ? this.props.options : []
+    options: this.props.options ? this.props.options : [],
+    selectedOption: null
   };
 
   componentDidMount() {
@@ -41,6 +47,7 @@ export class IndecisionApp extends React.Component<IIndecisionAppProps, IIndecis
       options: []
     }));
   };
+
   addOptionHandler = option => {
     if (!option) {
       return 'Enter valid value to add item';
@@ -51,16 +58,29 @@ export class IndecisionApp extends React.Component<IIndecisionAppProps, IIndecis
       options: prevState.options.concat(option)
     }));
   };
+
+  optionClearHandler = () => {
+    this.setState(prevState => ({
+      selectedOption: null
+    }));
+  };
+
   pickOptionHandler = () => {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNum];
-    if (option) alert(option);
+    if (option) {
+      this.setState(() => ({
+        selectedOption: option
+      }));
+    }
   };
+
   removeOptionHandler = option => {
     this.setState(prevState => ({
       options: prevState.options.filter(item => item !== option)
     }));
   };
+
   render() {
     const subtitle = 'Put your life in the hands of computer';
     return (
@@ -76,6 +96,10 @@ export class IndecisionApp extends React.Component<IIndecisionAppProps, IIndecis
           deleteOptionsHandler={this.deleteOptionsHandler}
         />
         <AddOption addOptionHandler={this.addOptionHandler} />
+        <OptionModal
+          optionClearHandler={this.optionClearHandler}
+          selectedOption={this.state.selectedOption}
+        />
       </div>
     );
   }
