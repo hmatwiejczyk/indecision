@@ -4,17 +4,18 @@ import { Options } from './Options';
 import { Header } from './Header';
 import { Action } from './Action';
 
-export class IndecisionApp extends React.Component<{}, { options }> {
-  constructor(props) {
-    super(props);
-    this.deleteOptionsHandler = this.deleteOptionsHandler.bind(this);
-    this.pickOptionHandler = this.pickOptionHandler.bind(this);
-    this.addOptionHandler = this.addOptionHandler.bind(this);
-    this.removeOptionHandler = this.removeOptionHandler.bind(this);
-    this.state = {
-      options: props.options ? props.options: []
-    };
-  }
+interface IIndecisionAppProps {
+  options: string[]
+}
+
+interface IIndecisionAppState {
+  options: string[]
+}
+
+export class IndecisionApp extends React.Component<IIndecisionAppProps, IIndecisionAppState>{
+  state = {
+    options: this.props.options ? this.props.options : []
+  };
 
   componentDidMount() {
     try {
@@ -35,12 +36,12 @@ export class IndecisionApp extends React.Component<{}, { options }> {
     }
   }
 
-  deleteOptionsHandler() {
+  deleteOptionsHandler = () => {
     this.setState(() => ({
       options: []
     }));
-  }
-  addOptionHandler(option) {
+  };
+  addOptionHandler = option => {
     if (!option) {
       return 'Enter valid value to add item';
     } else if (this.state.options.indexOf(option) > -1) {
@@ -49,17 +50,17 @@ export class IndecisionApp extends React.Component<{}, { options }> {
     this.setState(prevState => ({
       options: prevState.options.concat(option)
     }));
-  }
-  pickOptionHandler() {
+  };
+  pickOptionHandler = () => {
     const randomNum = Math.floor(Math.random() * this.state.options.length);
     const option = this.state.options[randomNum];
     if (option) alert(option);
-  }
-  removeOptionHandler(option) {
+  };
+  removeOptionHandler = option => {
     this.setState(prevState => ({
       options: prevState.options.filter(item => item !== option)
     }));
-  }
+  };
   render() {
     const subtitle = 'Put your life in the hands of computer';
     return (

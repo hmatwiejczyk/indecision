@@ -8,14 +8,10 @@ export class AddOption extends React.Component<
   { addOptionHandler },
   IndecisionState
 > {
-  constructor(props) {
-    super(props);
-    this.onSubmitForm = this.onSubmitForm.bind(this);
-    this.state = {
-      error: null
-    };
-  }
-  onSubmitForm(e) {
+  state = {
+    error: null
+  };
+  onSubmitForm = e => {
     e.preventDefault();
     const option = e.target.elements.option.value.trim();
     const error = this.props.addOptionHandler(option);
@@ -25,7 +21,7 @@ export class AddOption extends React.Component<
     if (!error) {
       e.target.elements.option.value = '';
     }
-  }
+  };
   render() {
     return (
       <form onSubmit={this.onSubmitForm}>
